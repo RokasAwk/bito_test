@@ -16,7 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$ExchangeRateTableState {
-  List<Currency> get currencyList => throw _privateConstructorUsedError;
+  List<CurrencyItem> get currencyList => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ExchangeRateTableStateCopyWith<ExchangeRateTableState> get copyWith =>
@@ -29,7 +29,7 @@ abstract class $ExchangeRateTableStateCopyWith<$Res> {
           $Res Function(ExchangeRateTableState) then) =
       _$ExchangeRateTableStateCopyWithImpl<$Res, ExchangeRateTableState>;
   @useResult
-  $Res call({List<Currency> currencyList});
+  $Res call({List<CurrencyItem> currencyList});
 }
 
 /// @nodoc
@@ -52,7 +52,7 @@ class _$ExchangeRateTableStateCopyWithImpl<$Res,
       currencyList: null == currencyList
           ? _value.currencyList
           : currencyList // ignore: cast_nullable_to_non_nullable
-              as List<Currency>,
+              as List<CurrencyItem>,
     ) as $Val);
   }
 }
@@ -66,7 +66,7 @@ abstract class _$$ExchangeRateTableStateImplCopyWith<$Res>
       __$$ExchangeRateTableStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<Currency> currencyList});
+  $Res call({List<CurrencyItem> currencyList});
 }
 
 /// @nodoc
@@ -88,7 +88,7 @@ class __$$ExchangeRateTableStateImplCopyWithImpl<$Res>
       currencyList: null == currencyList
           ? _value._currencyList
           : currencyList // ignore: cast_nullable_to_non_nullable
-              as List<Currency>,
+              as List<CurrencyItem>,
     ));
   }
 }
@@ -96,12 +96,12 @@ class __$$ExchangeRateTableStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$ExchangeRateTableStateImpl implements _ExchangeRateTableState {
-  _$ExchangeRateTableStateImpl({required final List<Currency> currencyList})
+  _$ExchangeRateTableStateImpl({required final List<CurrencyItem> currencyList})
       : _currencyList = currencyList;
 
-  final List<Currency> _currencyList;
+  final List<CurrencyItem> _currencyList;
   @override
-  List<Currency> get currencyList {
+  List<CurrencyItem> get currencyList {
     if (_currencyList is EqualUnmodifiableListView) return _currencyList;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_currencyList);
@@ -135,11 +135,11 @@ class _$ExchangeRateTableStateImpl implements _ExchangeRateTableState {
 
 abstract class _ExchangeRateTableState implements ExchangeRateTableState {
   factory _ExchangeRateTableState(
-          {required final List<Currency> currencyList}) =
+          {required final List<CurrencyItem> currencyList}) =
       _$ExchangeRateTableStateImpl;
 
   @override
-  List<Currency> get currencyList;
+  List<CurrencyItem> get currencyList;
   @override
   @JsonKey(ignore: true)
   _$$ExchangeRateTableStateImplCopyWith<_$ExchangeRateTableStateImpl>
