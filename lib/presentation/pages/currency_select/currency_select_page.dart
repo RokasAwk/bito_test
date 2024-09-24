@@ -1,5 +1,6 @@
 import 'package:auto_route/annotations.dart';
 import 'package:bito_test/domain/entity/currency_item.dart';
+import 'package:bito_test/presentation/pages/home/home_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -8,12 +9,11 @@ import '../../di_providers/di_provider.dart';
 @RoutePage()
 class CurrencySelectPage extends ConsumerStatefulWidget {
   const CurrencySelectPage({
-    required this.onChangedCurrentCurrency,
     super.key,
+    required this.onTap,
   });
 
-  final Function(Currency currency) onChangedCurrentCurrency;
-
+  final Function(CurrencyItem currencyItem) onTap;
   @override
   ConsumerState<CurrencySelectPage> createState() => _CurrencySelectPageState();
 }
@@ -34,8 +34,9 @@ class _CurrencySelectPageState extends ConsumerState<CurrencySelectPage> {
           itemBuilder: (context, index) {
             return _buildItemTile(
                 item: state.currencyList[index],
-                onTap: () => widget.onChangedCurrentCurrency
-                    .call(state.currencyList[index].currency));
+                onTap: () {
+                  widget.onTap.call(state.currencyList[index]);
+                });
           }),
     ));
   }
