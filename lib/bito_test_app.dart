@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'presentation/di_providers/di_provider.dart';
 import 'presentation/routers/router.dart';
 import 'presentation/theme/theme.dart';
+import 'utils/toast_utils.dart';
 
 class BitoTestApp extends ConsumerStatefulWidget {
   const BitoTestApp({super.key});
@@ -16,7 +17,6 @@ class BitoTestApp extends ConsumerStatefulWidget {
 
 class _BitoTestAppState extends ConsumerState<BitoTestApp> {
   late final AppRouter appRouter;
-  late Locale locale;
 
   @override
   void initState() {
@@ -34,7 +34,7 @@ class _BitoTestAppState extends ConsumerState<BitoTestApp> {
             if (child != null) ...[
               OverlayEntry(
                 builder: (context) {
-                  //   ToastUtils.init(context, appRouter);
+                  ToastUtils.init(context);
                   return child;
                 },
               ),
