@@ -35,7 +35,7 @@ extension GetPairsResponseDtoMapper on GetPairsResponseDto {
           int.parse(amountDecimal),
         ),
         iconUrl: currencyIcon,
-        twdPrice: twdPrice,
-        amount: Decimal.parse(amountDecimal));
+        twdPrice: Decimal.parse(twdPrice.toString()),
+        scale: int.parse(amountDecimal));
   }
 }
