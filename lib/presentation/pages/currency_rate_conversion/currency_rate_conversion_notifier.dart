@@ -13,6 +13,8 @@ abstract class CurrencyRateConversionNotifier
     extends StateNotifier<CurrencyRateConversionState> {
   CurrencyRateConversionNotifier(super.state);
 
+  Future<void> onInit(List<CurrencyItem> itemList);
+
   void updateRate({
     required Decimal selectFromTwdPrice,
     required Decimal selectToTwdPrice,
@@ -38,6 +40,14 @@ class CurrencyRateConversionNotifierImpl
     required this.getPairsUseCase,
     required this.appRouter,
   }) : super(CurrencyRateConversionState.init());
+
+  @override
+  Future<void> onInit(List<CurrencyItem> itemList) async {
+    state = state.copyWith(
+      selectFrom: itemList.first,
+      selectTo: itemList.first,
+    );
+  }
 
   @override
   void updateRate({

@@ -38,6 +38,7 @@ class HomeNotifierImpl extends HomeNotifier {
 
   @override
   void goToConversionPage() {
-    appRouter.push(const CurrencyRateConversionRoute());
+    appRouter
+        .push(CurrencyRateConversionRoute(currencyList: state.currencyList));
   }
 }

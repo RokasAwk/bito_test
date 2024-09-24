@@ -56,8 +56,8 @@ class _ExchangeRateTablePageState extends ConsumerState<ExchangeRateTablePage> {
               height: 20,
             ),
             OutlinedButton.icon(
-                onPressed: () =>
-                    appRouter.push(const CurrencyRateConversionRoute()),
+                onPressed: () => appRouter.push(CurrencyRateConversionRoute(
+                    currencyList: homeState.currencyList)),
                 icon: const Icon(Icons.price_change_outlined),
                 label: const Text(
                   'Rate Conversion',

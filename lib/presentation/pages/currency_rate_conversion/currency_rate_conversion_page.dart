@@ -1,8 +1,7 @@
 import 'package:auto_route/annotations.dart';
 import 'package:bito_test/domain/entity/currency_item.dart';
 import 'package:bito_test/presentation/pages/currency_rate_conversion/widgets/conversion_text_form_filed.dart';
-import 'package:bito_test/presentation/pages/currency_rate_conversion/widgets/currency_drop_down_btn.dart';
-import 'package:bito_test/presentation/pages/home/home_state.dart';
+import 'package:bito_test/presentation/pages/currency_rate_conversion/widgets/select_currency_btn.dart';
 import 'package:bito_test/presentation/utils/string_extension.dart';
 import 'package:decimal/decimal.dart';
 import 'package:flutter/material.dart';
@@ -16,8 +15,9 @@ import 'currency_rate_conversion_state.dart';
 class CurrencyRateConversionPage extends ConsumerStatefulWidget {
   const CurrencyRateConversionPage({
     super.key,
+    required this.currencyList,
   });
-
+  final List<CurrencyItem> currencyList;
   @override
   ConsumerState<CurrencyRateConversionPage> createState() =>
       _CurrencyRateConversionPageState();
@@ -29,16 +29,23 @@ class _CurrencyRateConversionPageState
   final TextEditingController _selectToController = TextEditingController();
 
   @override
+  void initState() {
+    CurrencyRateConversionNotifier currencyRateConversionNotifier =
+        ref.read(currencyRateConversionStateNotifierProvider.notifier);
+
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      await currencyRateConversionNotifier.onInit(widget.currencyList);
+    });
+
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     CurrencyRateConversionState currencyRateConversionState =
         ref.watch(currencyRateConversionStateNotifierProvider);
     CurrencyRateConversionNotifier currencyRateConversionNotifier =
         ref.read(currencyRateConversionStateNotifierProvider.notifier);
-
-    HomeState homeState = ref.watch(homeStateNotifierProvider);
-
-    CurrencyItem selectFrom = currencyRateConversionState.selectFrom;
-    CurrencyItem selectTo = currencyRateConversionState.selectTo;
 
     _selectFromController.text = currencyRateConversionState.selectFromAmount
         .toString()
@@ -66,14 +73,15 @@ class _CurrencyRateConversionPageState
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          SelectCurrencyBtn(
-                              item: selectFrom == CurrencyItem.empty()
-                                  ? homeState.currencyList.first
-                                  : selectFrom,
-                              onPressed: () {
-                                currencyRateConversionNotifier
-                                    .goToSelectionPage(isFrom: true);
-                              }),
+                          if (currencyRateConversionState !=
+                              CurrencyRateConversionState.init()) ...[
+                            SelectCurrencyBtn(
+                                item: currencyRateConversionState.selectFrom,
+                                onPressed: () {
+                                  currencyRateConversionNotifier
+                                      .goToSelectionPage(isFrom: true);
+                                })
+                          ],
                           ConversionTextFormFiled(
                               isFrom: true,
                               controller: _selectFromController,
@@ -111,27 +119,27 @@ class _CurrencyRateConversionPageState
                           ),
                         ],
                       ),
-                      _buildConversionResult(
-                          selectFrom: selectFrom == CurrencyItem.empty()
-                              ? homeState.currencyList.first
-                              : selectFrom,
-                          selectTo: selectTo == CurrencyItem.empty()
-                              ? homeState.currencyList.first
-                              : selectTo,
-                          rate: currencyRateConversionState.rate),
+                      if (currencyRateConversionState !=
+                          CurrencyRateConversionState.init()) ...[
+                        _buildConversionResult(
+                            selectFrom: currencyRateConversionState.selectFrom,
+                            selectTo: currencyRateConversionState.selectTo,
+                            rate: currencyRateConversionState.rate),
+                      ]
                     ]),
                     Expanded(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          SelectCurrencyBtn(
-                              item: selectTo == CurrencyItem.empty()
-                                  ? homeState.currencyList.first
-                                  : selectTo,
-                              onPressed: () {
-                                currencyRateConversionNotifier
-                                    .goToSelectionPage(isFrom: false);
-                              }),
+                          if (currencyRateConversionState !=
+                              CurrencyRateConversionState.init()) ...[
+                            SelectCurrencyBtn(
+                                item: currencyRateConversionState.selectTo,
+                                onPressed: () {
+                                  currencyRateConversionNotifier
+                                      .goToSelectionPage(isFrom: false);
+                                }),
+                          ],
                           ConversionTextFormFiled(
                               isFrom: false,
                               controller: _selectToController,

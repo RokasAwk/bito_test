@@ -16,9 +16,13 @@ abstract class _$AppRouter extends RootStackRouter {
   @override
   final Map<String, PageFactory> pagesMap = {
     CurrencyRateConversionRoute.name: (routeData) {
+      final args = routeData.argsAs<CurrencyRateConversionRouteArgs>();
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const CurrencyRateConversionPage(),
+        child: CurrencyRateConversionPage(
+          key: args.key,
+          currencyList: args.currencyList,
+        ),
       );
     },
     CurrencySelectRoute.name: (routeData) {
@@ -48,16 +52,41 @@ abstract class _$AppRouter extends RootStackRouter {
 
 /// generated route for
 /// [CurrencyRateConversionPage]
-class CurrencyRateConversionRoute extends PageRouteInfo<void> {
-  const CurrencyRateConversionRoute({List<PageRouteInfo>? children})
-      : super(
+class CurrencyRateConversionRoute
+    extends PageRouteInfo<CurrencyRateConversionRouteArgs> {
+  CurrencyRateConversionRoute({
+    Key? key,
+    required List<CurrencyItem> currencyList,
+    List<PageRouteInfo>? children,
+  }) : super(
           CurrencyRateConversionRoute.name,
+          args: CurrencyRateConversionRouteArgs(
+            key: key,
+            currencyList: currencyList,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'CurrencyRateConversionRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static const PageInfo<CurrencyRateConversionRouteArgs> page =
+      PageInfo<CurrencyRateConversionRouteArgs>(name);
+}
+
+class CurrencyRateConversionRouteArgs {
+  const CurrencyRateConversionRouteArgs({
+    this.key,
+    required this.currencyList,
+  });
+
+  final Key? key;
+
+  final List<CurrencyItem> currencyList;
+
+  @override
+  String toString() {
+    return 'CurrencyRateConversionRouteArgs{key: $key, currencyList: $currencyList}';
+  }
 }
 
 /// generated route for
