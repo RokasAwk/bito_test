@@ -1,6 +1,8 @@
-import 'package:bito_test/presentation/pages/exchange_rate_table/exchange_rate_table_page.dart';
 import 'package:bito_test/presentation/pages/home/home_state.dart';
+import 'package:bito_test/utils/toast_utils.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:money2/money2.dart';
 
 import '../../routers/router.dart';
 
@@ -10,6 +12,8 @@ abstract class HomeNotifier extends StateNotifier<HomeState> {
   void goToExchangeRateTablePage();
   void goToConversionPage();
   void goToSelectionPage();
+
+  void onChangedCurrentCurrency(Currency currency);
 }
 
 class HomeNotifierImpl extends HomeNotifier {
@@ -31,6 +35,15 @@ class HomeNotifierImpl extends HomeNotifier {
 
   @override
   void goToSelectionPage() {
-    // TODO: implement goToSelectionPage
+    appRouter.push(
+        CurrencySelectRoute(onChangedCurrentCurrency: (Currency currency) {
+      onChangedCurrentCurrency(currency);
+    }));
+  }
+
+  @override
+  void onChangedCurrentCurrency(Currency currency) {
+    state = state.copyWith(currentCurrency: currency);
+    ToastUtils.showToast('Changed Successfully!');
   }
 }
