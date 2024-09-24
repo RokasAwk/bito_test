@@ -1,12 +1,11 @@
 import 'package:auto_route/annotations.dart';
 import 'package:bito_test/domain/entity/currency_item.dart';
 import 'package:bito_test/presentation/pages/exchange_rate_table/exchange_rate_table_state.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../di_providers/di_provider.dart';
-import 'exchange_rate_table_notifier.dart';
 
 @RoutePage()
 class ExchangeRateTablePage extends ConsumerStatefulWidget {
@@ -42,11 +41,28 @@ class _ExchangeRateTablePageState extends ConsumerState<ExchangeRateTablePage> {
             title: _buildAppBarTitle(),
             bottom: _buildAppBarSubTitle(),
           ),
-          body: ListView.builder(
-              itemCount: state.currencyList.length,
-              itemBuilder: (context, index) {
-                return _buildItemTile(item: state.currencyList[index]);
-              })),
+          body: Column(children: [
+            SingleChildScrollView(
+              child: SizedBox(
+                height: MediaQuery.of(context).size.height * 0.65,
+                child: ListView.builder(
+                    itemCount: state.currencyList.length,
+                    itemBuilder: (context, index) {
+                      return _buildItemTile(item: state.currencyList[index]);
+                    }),
+              ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            OutlinedButton.icon(
+                onPressed: null,
+                icon: const Icon(Icons.price_change_outlined),
+                label: const Text(
+                  'Rate Conversion',
+                  style: TextStyle(fontSize: 20),
+                )),
+          ])),
     );
   }
 }
