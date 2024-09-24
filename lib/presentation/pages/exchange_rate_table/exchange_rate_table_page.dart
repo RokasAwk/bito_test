@@ -1,6 +1,5 @@
 import 'package:auto_route/annotations.dart';
 import 'package:bito_test/domain/entity/currency_item.dart';
-import 'package:bito_test/presentation/pages/exchange_rate_table/exchange_rate_table_state.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -21,18 +20,12 @@ class ExchangeRateTablePage extends ConsumerStatefulWidget {
 class _ExchangeRateTablePageState extends ConsumerState<ExchangeRateTablePage> {
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-      await ref
-          .read(exchangeRateTableStateNotifierProvider.notifier)
-          .fetchData();
-    });
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    ExchangeRateTableState state =
-        ref.watch(exchangeRateTableStateNotifierProvider);
+    HomeState homeState = ref.watch(homeStateNotifierProvider);
 
     return SafeArea(
       child: Scaffold(
@@ -46,9 +39,10 @@ class _ExchangeRateTablePageState extends ConsumerState<ExchangeRateTablePage> {
               child: SizedBox(
                 height: MediaQuery.of(context).size.height * 0.65,
                 child: ListView.builder(
-                    itemCount: state.currencyList.length,
+                    itemCount: homeState.currencyList.length,
                     itemBuilder: (context, index) {
-                      return _buildItemTile(item: state.currencyList[index]);
+                      return _buildItemTile(
+                          item: homeState.currencyList[index]);
                     }),
               ),
             ),

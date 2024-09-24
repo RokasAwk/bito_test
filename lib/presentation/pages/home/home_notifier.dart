@@ -1,27 +1,35 @@
 import 'package:bito_test/presentation/pages/home/home_state.dart';
-import 'package:bito_test/utils/toast_utils.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:money2/money2.dart';
 
+import '../../../domain/usecases/get_pairs_usecase.dart';
 import '../../routers/router.dart';
 
 abstract class HomeNotifier extends StateNotifier<HomeState> {
   HomeNotifier(super.state);
 
+  Future<void> fetchData();
   void goToExchangeRateTablePage();
   void goToConversionPage();
-  void goToSelectionPage();
-
-  void onChangedCurrentCurrency(Currency currency);
 }
 
 class HomeNotifierImpl extends HomeNotifier {
+  final GetPairsUseCase getPairsUseCase;
   final AppRouter appRouter;
 
   HomeNotifierImpl({
+    required this.getPairsUseCase,
     required this.appRouter,
   }) : super(HomeState.init());
+
+  @override
+  Future<void> fetchData() async {
+    final result = await getPairsUseCase.execute(null);
+    result.when(success: (data) {
+      state = state.copyWith(currencyList: data);
+    }, error: (error) {
+      state = HomeState.init();
+    });
+  }
 
   @override
   void goToExchangeRateTablePage() {
@@ -30,20 +38,6 @@ class HomeNotifierImpl extends HomeNotifier {
 
   @override
   void goToConversionPage() {
-    // TODO: implement goToConversionPage
-  }
-
-  @override
-  void goToSelectionPage() {
-    appRouter.push(
-        CurrencySelectRoute(onChangedCurrentCurrency: (Currency currency) {
-      onChangedCurrentCurrency(currency);
-    }));
-  }
-
-  @override
-  void onChangedCurrentCurrency(Currency currency) {
-    state = state.copyWith(currentCurrency: currency);
-    ToastUtils.showToast('Changed Successfully!');
+    appRouter.push(const CurrencyRateConversionRoute());
   }
 }

@@ -16,7 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$HomeState {
-  Currency get currentCurrency => throw _privateConstructorUsedError;
+  List<CurrencyItem> get currencyList => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $HomeStateCopyWith<HomeState> get copyWith =>
@@ -28,7 +28,7 @@ abstract class $HomeStateCopyWith<$Res> {
   factory $HomeStateCopyWith(HomeState value, $Res Function(HomeState) then) =
       _$HomeStateCopyWithImpl<$Res, HomeState>;
   @useResult
-  $Res call({Currency currentCurrency});
+  $Res call({List<CurrencyItem> currencyList});
 }
 
 /// @nodoc
@@ -44,13 +44,13 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? currentCurrency = null,
+    Object? currencyList = null,
   }) {
     return _then(_value.copyWith(
-      currentCurrency: null == currentCurrency
-          ? _value.currentCurrency
-          : currentCurrency // ignore: cast_nullable_to_non_nullable
-              as Currency,
+      currencyList: null == currencyList
+          ? _value.currencyList
+          : currencyList // ignore: cast_nullable_to_non_nullable
+              as List<CurrencyItem>,
     ) as $Val);
   }
 }
@@ -63,7 +63,7 @@ abstract class _$$HomeStateImplCopyWith<$Res>
       __$$HomeStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Currency currentCurrency});
+  $Res call({List<CurrencyItem> currencyList});
 }
 
 /// @nodoc
@@ -77,13 +77,13 @@ class __$$HomeStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? currentCurrency = null,
+    Object? currencyList = null,
   }) {
     return _then(_$HomeStateImpl(
-      currentCurrency: null == currentCurrency
-          ? _value.currentCurrency
-          : currentCurrency // ignore: cast_nullable_to_non_nullable
-              as Currency,
+      currencyList: null == currencyList
+          ? _value._currencyList
+          : currencyList // ignore: cast_nullable_to_non_nullable
+              as List<CurrencyItem>,
     ));
   }
 }
@@ -91,14 +91,20 @@ class __$$HomeStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$HomeStateImpl implements _HomeState {
-  _$HomeStateImpl({required this.currentCurrency});
+  _$HomeStateImpl({required final List<CurrencyItem> currencyList})
+      : _currencyList = currencyList;
 
+  final List<CurrencyItem> _currencyList;
   @override
-  final Currency currentCurrency;
+  List<CurrencyItem> get currencyList {
+    if (_currencyList is EqualUnmodifiableListView) return _currencyList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_currencyList);
+  }
 
   @override
   String toString() {
-    return 'HomeState(currentCurrency: $currentCurrency)';
+    return 'HomeState(currencyList: $currencyList)';
   }
 
   @override
@@ -106,12 +112,13 @@ class _$HomeStateImpl implements _HomeState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$HomeStateImpl &&
-            (identical(other.currentCurrency, currentCurrency) ||
-                other.currentCurrency == currentCurrency));
+            const DeepCollectionEquality()
+                .equals(other._currencyList, _currencyList));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, currentCurrency);
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(_currencyList));
 
   @JsonKey(ignore: true)
   @override
@@ -121,11 +128,11 @@ class _$HomeStateImpl implements _HomeState {
 }
 
 abstract class _HomeState implements HomeState {
-  factory _HomeState({required final Currency currentCurrency}) =
+  factory _HomeState({required final List<CurrencyItem> currencyList}) =
       _$HomeStateImpl;
 
   @override
-  Currency get currentCurrency;
+  List<CurrencyItem> get currencyList;
   @override
   @JsonKey(ignore: true)
   _$$HomeStateImplCopyWith<_$HomeStateImpl> get copyWith =>

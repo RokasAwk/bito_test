@@ -2,10 +2,8 @@ import 'package:auto_route/annotations.dart';
 import 'package:bito_test/domain/entity/currency_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:money2/money2.dart';
 
 import '../../di_providers/di_provider.dart';
-import 'currency_select_state.dart';
 
 @RoutePage()
 class CurrencySelectPage extends ConsumerStatefulWidget {
@@ -22,16 +20,8 @@ class CurrencySelectPage extends ConsumerStatefulWidget {
 
 class _CurrencySelectPageState extends ConsumerState<CurrencySelectPage> {
   @override
-  void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-      await ref.read(currencySelectStateNotifierProvider.notifier).fetchData();
-    });
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    CurrencySelectState state = ref.watch(currencySelectStateNotifierProvider);
+    HomeState state = ref.watch(homeStateNotifierProvider);
 
     return SafeArea(
         child: Scaffold(
