@@ -1,10 +1,13 @@
 import 'package:auto_route/annotations.dart';
 import 'package:bito_test/domain/entity/currency_item.dart';
+import 'package:bito_test/presentation/pages/home/home_state.dart';
+import 'package:bito_test/presentation/utils/string_extension.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../di_providers/di_provider.dart';
+import '../../routers/router.dart';
 
 @RoutePage()
 class ExchangeRateTablePage extends ConsumerStatefulWidget {
@@ -18,8 +21,11 @@ class ExchangeRateTablePage extends ConsumerStatefulWidget {
 }
 
 class _ExchangeRateTablePageState extends ConsumerState<ExchangeRateTablePage> {
+  late final AppRouter appRouter;
+
   @override
   void initState() {
+    appRouter = ref.read(routerProvider);
     super.initState();
   }
 
@@ -50,7 +56,8 @@ class _ExchangeRateTablePageState extends ConsumerState<ExchangeRateTablePage> {
               height: 20,
             ),
             OutlinedButton.icon(
-                onPressed: null,
+                onPressed: () =>
+                    appRouter.push(const CurrencyRateConversionRoute()),
                 icon: const Icon(Icons.price_change_outlined),
                 label: const Text(
                   'Rate Conversion',
@@ -81,7 +88,7 @@ Widget _buildItemTile({
               Text('${item.currency.isoCode} / TWD')
             ],
           ),
-          Text('${item.twdPrice}'),
+          Text(item.twdPrice.toString().formatNumberWithComma()),
         ],
       ));
 }
