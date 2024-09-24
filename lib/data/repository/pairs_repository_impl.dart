@@ -30,7 +30,10 @@ extension GetPairsResponseDtoMapper on GetPairsResponseDto {
   CurrencyItem toCurrencyItem() {
     return CurrencyItem(
         id: id,
-        currency: Currency.create(currency, 2),
+        currency: Currency.create(
+          currency,
+          int.parse(amountDecimal),
+        ),
         iconUrl: currencyIcon,
         twdPrice: twdPrice,
         amount: Decimal.parse(amountDecimal));
