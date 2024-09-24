@@ -6,6 +6,8 @@ import 'package:bito_test/presentation/pages/exchange_rate_table/exchange_rate_t
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../pages/currency_select/currency_select_notifier.dart';
+import '../pages/currency_select/currency_select_state.dart';
 import '../pages/exchange_rate_table/exchange_rate_table_state.dart';
 import '../pages/home/home_notifier.dart';
 import '../pages/home/home_state.dart';
@@ -29,6 +31,14 @@ final exchangeRateTableStateNotifierProvider =
     StateNotifierProvider<ExchangeRateTableNotifier, ExchangeRateTableState>(
         (ref) {
   return ExchangeRateTableNotifierImpl(
+    getPairsUseCase: ref.read(getPairsUseCaseProvider),
+    appRouter: ref.read(routerProvider),
+  );
+});
+
+final currencySelectStateNotifierProvider =
+    StateNotifierProvider<CurrencySelectNotifier, CurrencySelectState>((ref) {
+  return CurrencySelectNotifierImpl(
     getPairsUseCase: ref.read(getPairsUseCaseProvider),
     appRouter: ref.read(routerProvider),
   );

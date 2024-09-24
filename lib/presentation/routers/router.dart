@@ -1,4 +1,7 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/material.dart';
+import 'package:money2/money2.dart';
+import '../pages/currency_select/currency_select_page.dart';
 import '../pages/exchange_rate_table/exchange_rate_table_page.dart';
 import '../pages/home/home_page.dart';
 
@@ -23,6 +26,9 @@ class AppRouter extends _$AppRouter {
         ),
         AutoRoute(
           page: ExchangeRateTableRoute.page,
+        ),
+        AutoRoute(
+          page: CurrencySelectRoute.page,
         ),
       ];
 }
