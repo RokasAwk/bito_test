@@ -15,13 +15,19 @@ abstract class _$AppRouter extends RootStackRouter {
 
   @override
   final Map<String, PageFactory> pagesMap = {
+    CurrencyRateConversionRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const CurrencyRateConversionPage(),
+      );
+    },
     CurrencySelectRoute.name: (routeData) {
       final args = routeData.argsAs<CurrencySelectRouteArgs>();
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: CurrencySelectPage(
-          onChangedCurrentCurrency: args.onChangedCurrentCurrency,
           key: args.key,
+          onTap: args.onTap,
         ),
       );
     },
@@ -41,17 +47,31 @@ abstract class _$AppRouter extends RootStackRouter {
 }
 
 /// generated route for
+/// [CurrencyRateConversionPage]
+class CurrencyRateConversionRoute extends PageRouteInfo<void> {
+  const CurrencyRateConversionRoute({List<PageRouteInfo>? children})
+      : super(
+          CurrencyRateConversionRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'CurrencyRateConversionRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
 /// [CurrencySelectPage]
 class CurrencySelectRoute extends PageRouteInfo<CurrencySelectRouteArgs> {
   CurrencySelectRoute({
-    required dynamic Function(Currency) onChangedCurrentCurrency,
     Key? key,
+    required dynamic Function(CurrencyItem) onTap,
     List<PageRouteInfo>? children,
   }) : super(
           CurrencySelectRoute.name,
           args: CurrencySelectRouteArgs(
-            onChangedCurrentCurrency: onChangedCurrentCurrency,
             key: key,
+            onTap: onTap,
           ),
           initialChildren: children,
         );
@@ -64,17 +84,17 @@ class CurrencySelectRoute extends PageRouteInfo<CurrencySelectRouteArgs> {
 
 class CurrencySelectRouteArgs {
   const CurrencySelectRouteArgs({
-    required this.onChangedCurrentCurrency,
     this.key,
+    required this.onTap,
   });
-
-  final dynamic Function(Currency) onChangedCurrentCurrency;
 
   final Key? key;
 
+  final dynamic Function(CurrencyItem) onTap;
+
   @override
   String toString() {
-    return 'CurrencySelectRouteArgs{onChangedCurrentCurrency: $onChangedCurrentCurrency, key: $key}';
+    return 'CurrencySelectRouteArgs{key: $key, onTap: $onTap}';
   }
 }
 
